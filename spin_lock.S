@@ -28,10 +28,10 @@ _Lock:
 Lock:
 #endif
         START_PROC
+        mov         w3, 1
 1:      ldaxr       w1, [x0]
         cbnz        w1, 1b          // lock taken - spin.
-        add         w1, w1, 1
-        stlxr       w2, w1, [x0]
+        stlxr       w2, w3, [x0]
         cbnz        w2, 1b          // shucks - somebody meddled.
         // considered using dmb here
         ret
